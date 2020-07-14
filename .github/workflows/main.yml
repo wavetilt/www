@@ -18,7 +18,7 @@ jobs:
       run: npm run build
 
     - name: Copy static files
-      run: cp src/404.html src/favicon.ico src/CNAME public
+      run: cp src/social.jpg src/404.html src/favicon.ico src/CNAME public
 
     - name: Initialize worktree
       run: |
