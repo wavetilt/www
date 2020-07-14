@@ -1,29 +1,46 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Publish
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   push:
     branches: [ development ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  publish:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Runs a single command using the runners shell
     - name: Install Node.js dependencies
       run: npm install
 
-    # Runs a set of commands using the runners shell
     - name: Build project
       run: npm run build
+
+    - name: Copy static files
+      run: cp src/404.html src/favicon.ico src/CNAME public
+
+    - name: Initialize worktree
+      run: |
+        git worktree add -b master ../wavetilt-www-master
+        cd ../wavetilt-www-master
+        git fetch origin master
+        git reset --hard origin/master
+
+    - name: Copy files
+      run: |
+        link ../wavetilt-www-master/.git ../wt-www.git
+        rsync -vrptx --delete public/ ../wavetilt-www-master/
+        link ../wt-www.git ../wavetilt-www-master/.git
+
+    - name: Commit
+      run: |
+        cd ../wavetilt-www-master
+        git add -A
+        git -c user.name=Wavetilt -c user.email=github@wavetilt.com commit -C $(git log -1 --oneline --pretty=%H development)
+        git log
+
+    - name: Publish
+      run: |
+        cd ../wavetilt-www-master
+        git push origin master
