@@ -83,7 +83,7 @@ const C = css({
 			color: 'black',
 			textDecoration: 'none',
 			textAlign: 'center',
-			padding: '0 2rem',
+			paddingRight: '2rem',
 
 			'&:hover > span': {
 				borderBottom: '1px solid black'
