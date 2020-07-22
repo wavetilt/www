@@ -71,7 +71,6 @@ const C = css({
 	nav: {
 		width: '100%',
 		height: '2rem',
-		background: 'white',
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'flex-end',
@@ -79,14 +78,16 @@ const C = css({
 		'& > a': {
 			fontSize: '1rem',
 			lineHeight: '2rem',
-			vAlign: 'center',
-			color: 'black',
+			verticalAlign: 'middle',
+			color: 'white',
 			textDecoration: 'none',
 			textAlign: 'center',
 			paddingRight: '2rem',
+			fontSize: '1rem',
+			fontWeight: 'bold',
 
 			'&:hover > span': {
-				borderBottom: '1px solid black'
+				borderBottom: '1px solid white'
 			}
 		}
 	}
