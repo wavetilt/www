@@ -15,7 +15,7 @@ jobs:
       run: npm install
 
     - name: Build project
-      run: npm run build
+      run: ./build.sh
 
     - name: Copy static files
       run: cp src/social.jpg src/404.html src/favicon.ico src/CNAME public
