@@ -20,6 +20,9 @@ jobs:
     - name: Copy static files
       run: cp src/social.jpg src/404.html src/favicon.ico src/CNAME public
 
+    - name: Copy external files
+      run: cp -R src/ext public/ext
+
     - name: Initialize worktree
       run: |
         git worktree add -b master ../wavetilt-www-master
